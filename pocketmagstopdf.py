@@ -103,7 +103,7 @@ Notes:
     URLs for pocketmags images and User UUIDs can be found by using the HTML 5 reader and
     right-clicking on a page and selecting "inspect element". Look for URLs of the form:
 
-        https://mcdatastore.blob.core.windows.net/mcmags/<uuid1>/<uuid2>/extralow/<num>.jpg
+        https://files.magazineclonercdn.com/mcmags/<uuid1>/<uuid2>/extralow/<num>.jpg
 
     where <uuid{1,2}> are strings of letters and numbers with dashes separating them
     and <num> is some 4-digit number.
@@ -151,10 +151,10 @@ URL_PATH_PATTERN = re.compile(
 # But it does not exist for the (older) example magazine used here:
 
 # Older magazine: Example URLs sampled 8 July 2022, deliberately using an advert from a magazine:
-# https://mcdatastore.blob.core.windows.net/mcmags/f3786b15-4b19-456e-9b58-2af137a35bcd/ba9c5bcb-cf96-4215-a2f5-841ddb4a119c/extralow/0046.jpg
-# https://mcdatastore.blob.core.windows.net/mcmags/f3786b15-4b19-456e-9b58-2af137a35bcd/ba9c5bcb-cf96-4215-a2f5-841ddb4a119c/low/0046.jpg
-# https://mcdatastore.blob.core.windows.net/mcmags/f3786b15-4b19-456e-9b58-2af137a35bcd/ba9c5bcb-cf96-4215-a2f5-841ddb4a119c/mid/0046.jpg
-# https://mcdatastore.blob.core.windows.net/mcmags/f3786b15-4b19-456e-9b58-2af137a35bcd/ba9c5bcb-cf96-4215-a2f5-841ddb4a119c/high/0046.bin
+# https://files.magazineclonercdn.com/mcmags/f3786b15-4b19-456e-9b58-2af137a35bcd/ba9c5bcb-cf96-4215-a2f5-841ddb4a119c/extralow/0046.jpg
+# https://files.magazineclonercdn.com/mcmags/f3786b15-4b19-456e-9b58-2af137a35bcd/ba9c5bcb-cf96-4215-a2f5-841ddb4a119c/low/0046.jpg
+# https://files.magazineclonercdn.com/mcmags/f3786b15-4b19-456e-9b58-2af137a35bcd/ba9c5bcb-cf96-4215-a2f5-841ddb4a119c/mid/0046.jpg
+# https://files.magazineclonercdn.com/mcmags/f3786b15-4b19-456e-9b58-2af137a35bcd/ba9c5bcb-cf96-4215-a2f5-841ddb4a119c/high/0046.bin
 # Image Sizes (based upon the above URLs for page 46)
 # extralow: 340  x 480
 # low:      362  x 512
@@ -163,18 +163,18 @@ URL_PATH_PATTERN = re.compile(
 
 # Newer magazine: Example URLs sampled 17 March 2023, deliberately using an advert from a magazine:
 # extralow
-# https://mcdatastore.blob.core.windows.net/mcmags/6c4f9d70-3791-4cdb-8649-deb6d4b8bd29/c4d2c289-48ae-4bad-9a20-7eb0de6debf9/extralow/0084.jpg
-# https://mcdatastore.blob.core.windows.net/mcmags/6c4f9d70-3791-4cdb-8649-deb6d4b8bd29/c4d2c289-48ae-4bad-9a20-7eb0de6debf9/extralow/0084.bin
+# https://files.magazineclonercdn.com/mcmags/6c4f9d70-3791-4cdb-8649-deb6d4b8bd29/c4d2c289-48ae-4bad-9a20-7eb0de6debf9/extralow/0084.jpg
+# https://files.magazineclonercdn.com/mcmags/6c4f9d70-3791-4cdb-8649-deb6d4b8bd29/c4d2c289-48ae-4bad-9a20-7eb0de6debf9/extralow/0084.bin
 # low
-# https://mcdatastore.blob.core.windows.net/mcmags/6c4f9d70-3791-4cdb-8649-deb6d4b8bd29/c4d2c289-48ae-4bad-9a20-7eb0de6debf9/low/0084.jpg
-# https://mcdatastore.blob.core.windows.net/mcmags/6c4f9d70-3791-4cdb-8649-deb6d4b8bd29/c4d2c289-48ae-4bad-9a20-7eb0de6debf9/low/0084.bin
+# https://files.magazineclonercdn.com/mcmags/6c4f9d70-3791-4cdb-8649-deb6d4b8bd29/c4d2c289-48ae-4bad-9a20-7eb0de6debf9/low/0084.jpg
+# https://files.magazineclonercdn.com/mcmags/6c4f9d70-3791-4cdb-8649-deb6d4b8bd29/c4d2c289-48ae-4bad-9a20-7eb0de6debf9/low/0084.bin
 # mid
-# https://mcdatastore.blob.core.windows.net/mcmags/6c4f9d70-3791-4cdb-8649-deb6d4b8bd29/c4d2c289-48ae-4bad-9a20-7eb0de6debf9/mid/0084.jpg
-# https://mcdatastore.blob.core.windows.net/mcmags/6c4f9d70-3791-4cdb-8649-deb6d4b8bd29/c4d2c289-48ae-4bad-9a20-7eb0de6debf9/mid/0084.bin
+# https://files.magazineclonercdn.com/mcmags/6c4f9d70-3791-4cdb-8649-deb6d4b8bd29/c4d2c289-48ae-4bad-9a20-7eb0de6debf9/mid/0084.jpg
+# https://files.magazineclonercdn.com/mcmags/6c4f9d70-3791-4cdb-8649-deb6d4b8bd29/c4d2c289-48ae-4bad-9a20-7eb0de6debf9/mid/0084.bin
 # high
-# https://mcdatastore.blob.core.windows.net/mcmags/6c4f9d70-3791-4cdb-8649-deb6d4b8bd29/c4d2c289-48ae-4bad-9a20-7eb0de6debf9/high/0084.bin
+# https://files.magazineclonercdn.com/mcmags/6c4f9d70-3791-4cdb-8649-deb6d4b8bd29/c4d2c289-48ae-4bad-9a20-7eb0de6debf9/high/0084.bin
 # extrahigh
-# https://mcdatastore.blob.core.windows.net/mcmags/6c4f9d70-3791-4cdb-8649-deb6d4b8bd29/c4d2c289-48ae-4bad-9a20-7eb0de6debf9/extrahigh/0084.bin
+# https://files.magazineclonercdn.com/mcmags/6c4f9d70-3791-4cdb-8649-deb6d4b8bd29/c4d2c289-48ae-4bad-9a20-7eb0de6debf9/extrahigh/0084.bin
 # Image Sizes (based upon the above URLs for page 84)
 # extralow: 340  x 480 (same for .bin and .jpg)
 # low:      362  x 512 (same for .bin and .jpg)
