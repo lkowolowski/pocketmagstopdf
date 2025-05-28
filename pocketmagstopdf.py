@@ -1,9 +1,12 @@
-#!/usr/bin/env python3
-#
-# THIS SCRIPT REQUIRES PYTHON 3
-#
-# Install requirements via:
-#   pip3 install docopt pillow reportlab
+#!/usr/bin/env -S uv run --script
+# /// script
+# dependencies = [
+#   "docopt",
+#   "Pillow",
+#   "reportlab",
+#   "requests",
+# ]
+# ///
 #
 # Dedicated to the public domain where possible.
 # See: https://creativecommons.org/publicdomain/zero/1.0/
@@ -19,11 +22,12 @@ Options:
     -h, --help                  Print brief usage summary.
 
     --quality=QUALITY           Set magazine download quality.
-                                Choose from extralow, low, mid, high, extrahigh or original. (Optional)
+                                Choose from extralow, low, mid, high, extrahigh
+                                or original. (Optional)
                                 [default: mid]
 
-    --dpi=DPI                   Set image resolution in dots per inch. (Optional)
-                                Not used with '--quality=original'.
+    --dpi=DPI                   Set image resolution in dots per inch.
+                                (Optional) Not used with '--quality=original'.
                                 [default: 150]
 
     --title=TITLE               Set magazine title in the PDF metadata. (Optional)
@@ -32,64 +36,84 @@ Options:
                                     - underscores replaced with spaces
                                     - the file extension removed
 
-    --range-from=PAGE-FROM      Define a portion of the magazine to download, starting from this page number. (Optional)
-                                Downloads from the beginning of the magazine - page 1 - if absent.
+    --range-from=PAGE-FROM      Define a portion of the magazine to download,
+                                starting from this page number. (Optional)
+                                Downloads from the beginning of the magazine -
+                                page 1 - if absent.
                                 [default: 1]
 
-    --range-to=PAGE-TO          Define a portion of the magazine to download, ending on this page number. (Optional)
-                                Downloads to the end of the magazine if absent.
+    --range-to=PAGE-TO          Define a portion of the magazine to download,
+                                ending on this page number. (Optional) Downloads
+                                to the end of the magazine if absent.
                                 [default: 999]
 
-    --delay=DELAY               Set the time in seconds to wait between downloading each page of the magazine. (Optional)
-                                There is no delay if absent. The value of the delay may be integer or decimal.
-                                Used both whenenever probing for the last valid page number of the magazine and
-                                between downloading each individual page for all quality settings except 'original'.
+    --delay=DELAY               Set the time in seconds to wait between
+                                downloading each page of the magazine.
+                                (Optional) There is no delay if absent. The
+                                value of the delay may be integer or decimal.
+                                Used both whenenever probing for the last valid
+                                page number of the magazine and between
+                                downloading each individual page for all quality
+                                settings except 'original'.
                                 [default: 0]
 
-    --save-images               Save the downloaded JPEG images of the magazine pages to a subdirectory with the same
-                                name as the magazine in addition to generating the PDF of the magazine.
-                                Not used with '--quality=original'.
+    --save-images               Save the downloaded JPEG images of the magazine
+                                pages to a subdirectory with the same name as
+                                the magazine in addition to generating the PDF
+                                of the magazine. Not used with
+                                '--quality=original'.
                                 [default: False]
 
-    --image-subdir-prefix=PFX   If --save-images=yes then prefix name of the subdirectory the images are saved to with
-                                this string. Blank by default. (Optional)
+    --image-subdir-prefix=PFX   If --save-images=yes then prefix name of the
+                                subdirectory the images are saved to with this
+                                string. Blank by default. (Optional) Not used
+                                with '--quality=original'.
+                                [default: ]
+
+    --image-subdir-suffix=SFX   If --save-images=yes then suffix name of the
+                                subdirectory the images are saved to with this
+                                string. Blank by default. (Optional)
                                 Not used with '--quality=original'.
                                 [default: ]
 
-    --image-subdir-suffix=SFX   If --save-images=yes then suffix name of the subdirectory the images are saved to with
-                                this string. Blank by default. (Optional)
-                                Not used with '--quality=original'.
-                                [default: ]
+    --uuid=UUID                 Specifies the User UUID to use to download the
+                                PDF when '--quality=original' is used and
+                                --uuid-randomise is not used. Read the 'Notes'
+                                section below for details of how to find it.
+                                (Optional/Required) Only used with
+                                '--quality=original'. [default: None]
 
-    --uuid=UUID                 Specifies the User UUID to use to download the PDF when '--quality=original' is used
-                                and --uuid-randomise is not used.
-                                Read the 'Notes' section below for details of how to find it. (Optional/Required)
-                                Only used with '--quality=original'.
-                                [default: None]
-
-    --uuid-randomise            Uses a random UUID to download the PDF when '--quality=original' is specified. (Optional)
+    --uuid-randomise            Uses a random UUID to download the PDF when
+                                '--quality=original' is specified. (Optional)
                                 [default: False]
 
-    --uuid-hide                 Hides the User UUID watermark on each page of the PDF by making it transparent.
-                                This option is overridden by '--uuid-destroy'.
-                                Only used with '--quality=original' as watermark not present on lower quality downloads.
+    --uuid-hide                 Hides the User UUID watermark on each page of
+                                the PDF by making it transparent. This option is
+                                overridden by '--uuid-destroy'. Only used with
+                                '--quality=original' as watermark not present on
+                                lower quality downloads.
                                 [default: False]
 
-    --uuid-destroy              Completely wipes the User UUID watermark from each page of the PDF. (Experimental)
-                                This option overrides by '--uuid-hide'.
-                                Only used with '--quality=original' as watermark not present on lower quality downloads.
+    --uuid-destroy              Completely wipes the User UUID watermark from
+                                each page of the PDF. (Experimental) This option
+                                overrides by '--uuid-hide'. Only used with
+                                '--quality=original' as watermark not present on
+                                lower quality downloads.
                                 [default: False]
 
     --timestamp-change          Alters the timestamp within the downloaded PDF.
                                 Only used with '--quality=original'.
                                 [default: False]
 
-    --quiet                     Suppress printing of all output except warning and error messages.
+    --quiet                     Suppress printing of all output except warning
+                                and error messages.
                                 [default: False]
 
-    --debug                     Print extra output to aid debugging of the program.
-                                Setting both '--quiet' and '--debug' is contradictory
-                                If this happens, a warning is issued and the debug setting overrides the quiet setting.
+    --debug                     Print extra output to aid debugging of the
+                                program. Setting both '--quiet' and '--debug' is
+                                contradictory If this happens, a warning is
+                                issued and the debug setting overrides the quiet
+                                setting.
                                 [default: False]
 
     <pdf>                       Save output to this file. (Required)
@@ -100,16 +124,18 @@ Notes:
     PLEASE USE THIS SCRIPT RESPONSIBLY. THE MAGAZINE PUBLISHING INDUSTRY RELIES
     HEAVILY ON INCOME FROM SALES WITH VERY SLIM PROFIT MARGINS.
 
-    URLs for pocketmags images and User UUIDs can be found by using the HTML 5 reader and
-    right-clicking on a page and selecting "inspect element". Look for URLs of the form:
+    URLs for pocketmags images and User UUIDs can be found by using the HTML 5
+    reader and right-clicking on a page and selecting "inspect element". Look
+    for URLs of the form:
 
         https://files.magazineclonercdn.com/mcmags/<uuid1>/<uuid2>/extralow/<num>.jpg
 
-    where <uuid{1,2}> are strings of letters and numbers with dashes separating them
-    and <num> is some 4-digit number.
+    where <uuid{1,2}> are strings of letters and numbers with dashes separating
+    them and <num> is some 4-digit number.
 
-    The User UUID required for downloading the magazine when '--quality=original' can be
-    found by searching the HTML for the text "userGuid:" and copying the hexadecimal
+    The User UUID required for downloading the magazine when
+    '--quality=original' can be found by searching the HTML for the text
+    "userGuid:" and copying the hexadecimal
     value that follows it without the surrounding single quote characters.
 
 """
@@ -475,7 +501,7 @@ def main():
                 raise RuntimeError(
                     "Unexpected HTTP error code encountered while probing for the last page in the magazine: HTTP error {}".format(
                         jpeg_exists_response.status_code))
-            
+
             LOGGER.debug("HTTP response code {} for URL {}".format(jpeg_exists_response.status_code, jpeg_url))
             LOGGER.debug("Last good page number: {}, last bad page number: {}".format(last_good_page, last_bad_page))
             LOGGER.debug("Page jump value is {}".format(page_jump))
@@ -497,7 +523,7 @@ def main():
         # Add the required number of pages to the post_request_data
         for page_num in range(range_from - 1, range_to):
             post_request_data["pages[{}]".format(page_num)] = page_num
-        
+
         LOGGER.debug('Post request data to be sent is:')
         LOGGER.debug(post_request_data)
 
@@ -671,7 +697,7 @@ def main():
             itextsharp_object_moddate_property_location + moddate_date_offset_from_property_tag:
             itextsharp_object_moddate_property_location + moddate_date_offset_from_property_tag + len(
                 itextsharp_object_moddate_property_replacement_value)] = itextsharp_object_moddate_property_replacement_value
-        
+
         LOGGER.debug('Original iTextSharp CreationDate timestamp is {}, length {}'.format(
             itextsharp_object_creationdate_property_original_value,
             len(itextsharp_object_creationdate_property_original_value)))

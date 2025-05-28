@@ -1,0 +1,11 @@
+[project]
+name = "PocketmagsToPDF"
+version = "0.1.0"
+description = "Download pocketmags as PDF"
+readme = "README.md"
+dependencies = [
+  "docopt",
+  "Pillow",
+  "reportlab",
+  "requests",
+]
