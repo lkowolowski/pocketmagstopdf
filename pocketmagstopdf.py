@@ -105,6 +105,10 @@ Options:
                                 Only used with '--quality=original'.
                                 [default: False]
 
+    --user-agent=USER-AGENT     Sometimes requests will fail with 403 Forbidden
+                                responses if no User-Agent header is specified
+                                [default: Mozilla/5.0.0]
+
     --quiet                     Suppress printing of all output except warning
                                 and error messages.
                                 [default: False]
@@ -152,7 +156,7 @@ from io import BytesIO
 from time import sleep
 from urllib.error import HTTPError
 from urllib.parse import urlparse, urlunparse
-from urllib.request import urlopen
+from urllib.request import urlopen, Request
 import logging
 
 import PIL
@@ -270,6 +274,7 @@ def main():
     user_uuid_hide = bool(opts['--uuid-hide'])
     user_uuid_destroy = bool(opts['--uuid-destroy'])
     timestamp_change = bool(opts['--timestamp-change'])
+    user_agent = str(opts['--user-agent'])
     quiet = bool(opts['--quiet'])
     debug = bool(opts['--debug'])
 
@@ -345,6 +350,10 @@ def main():
         if user_uuid_randomise == True:
             user_uuid = str(uuid.uuid4())
 
+    headers = {}
+    if user_agent:
+        headers["User-Agent"] = user_agent
+
     LOGGER.info('URL is {}'.format(url.geturl()))
     LOGGER.info('File is {}'.format(pdf_fn))
     LOGGER.info('Storage bucket UUID is {}'.format(bucket_uuid))
@@ -358,7 +367,8 @@ def main():
     LOGGER.info('Randomise User UUID is {}'.format(str(user_uuid_randomise).lower()))
     LOGGER.info('Hide User UUID is {}'.format(str(user_uuid_hide).lower()))
     LOGGER.info('Destroy User UUID is {}'.format(str(user_uuid_destroy).lower()))
-    LOGGER.info('Change timestamp is {}'.format(str(timestamp_change).lower()))
+    LOGGER.info('User-Agent is {}'.format(str(user_agent)))
+    LOGGER.info('Quiet output is {}'.format(str(quiet).lower()))
     LOGGER.info('Quiet output is {}'.format(str(quiet).lower()))
     LOGGER.info('Debug output is {}'.format(str(debug).lower()))
 
@@ -384,7 +394,8 @@ def main():
                 page_url = urlunparse(page_url)
 
                 try:
-                    with urlopen(page_url) as f:
+                    req = Request(page_url , headers=headers)
+                    with urlopen(req) as f:
                         LOGGER.info('Downloading page {} from {}...'.format(page_num + 1, page_url))
 
                         # if: the extralow, low & mid quality "jpg" format URLs
